@@ -13,13 +13,6 @@ services:
       - DB_PORT=${DB_PORT}
     volumes:
       - .:/var/www/html
-    healthcheck:
-      # Utilisation directe des variables ou de valeurs par défaut si besoin
-      test: ["CMD", "php", "-r", "try { $pdo = new PDO('pgsql:host=' . getenv('DB_HOST') . ';port=' . getenv('DB_PORT') . ';dbname=' . getenv('DB_NAME'), getenv('DB_USER'), getenv('DB_PASSWORD')); echo 'OK'; } catch (Exception $e) { exit(1); }"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
 
   # Service 2 : Le serveur Web NGINX
   web:
@@ -32,10 +25,4 @@ services:
       - .:/var/www/html
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
-      api:
-        condition: service_healthy # Attend que l'API soit saine avant de lancer Nginx
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "http://localhost/"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
+      - api
