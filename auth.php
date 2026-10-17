@@ -102,7 +102,7 @@ try {
     if ($e->getCode() === '23000') {
         reply(409, ['success' => false, 'message' => 'Ce téléphone ou ce code PIN est déjà utilisé.']);
     }
-    reply(503, ['success' => false, 'message' => 'Service temporairement indisponible. Vérifiez la configuration MySQL.']);
+    reply(503, ['success' => false, 'message' => 'Service temporairement indisponible. Vérifiez la configuration MySQL. ' . $e->getMessage()]);
 } catch (Throwable $e) {
     if (isset($db) && $db->inTransaction()) $db->rollBack();
     error_log('auth.php: ' . $e->getMessage());
