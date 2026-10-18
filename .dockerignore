@@ -2,3 +2,4 @@
 .gitignore
 compose.yml
 Dockerfile
+Dockerfile.base
