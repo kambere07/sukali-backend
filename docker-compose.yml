@@ -11,8 +11,6 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_PORT=${DB_PORT}
-    volumes:
-      - ./app/:/var/www/html
 
   web:
     build:
