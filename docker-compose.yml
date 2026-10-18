@@ -22,7 +22,5 @@ services:
     restart: unless-stopped
     # ports:
     #   - "8282:80"
-    volumes:
-      - ./app/:/var/www/html
     depends_on:
       - api
