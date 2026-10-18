@@ -16,7 +16,7 @@ try {
     ]); // <-- L'accolade fermante du try était mal placée ici
 
 } catch (PDOException $e) {
-    die("<h2 style='color:green;text-align:center;margin-top:50px;font-family:sans-serif;'>Erreur de connexion à la base de données Sukali : " . htmlspecialchars($e->getMessage()) . "</h2>");
+    die("<h2 style='color:#e74c3c;text-align:center;margin-top:50px;font-family:sans-serif;'>Erreur de connexion à la base de données Sukali : " . htmlspecialchars($e->getMessage()) . "</h2>");
 }
 
 $token = $_GET['token'] ?? '';
