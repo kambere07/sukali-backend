@@ -84,8 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_message'])) {
             ':type_msg'   => $type_message
         ]);
         header("Location: consultation.php?token=" . urlencode($token) . "&sent=1");
-79 |     exit;
-
+        exit; // <-- Erreur corrigée ici (suppression du "79 |")
     }
 }
 

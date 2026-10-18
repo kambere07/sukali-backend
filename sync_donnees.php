@@ -34,11 +34,15 @@ if ($auth === '' && function_exists('getallheaders')) {
 if (!preg_match('/^Bearer ([a-f0-9]{64})$/', $auth, $matches)) reply(401, ['success' => false, 'message' => 'Session requise.']);
 $configPath = getenv('SUKALI_CONFIG_FILE') ?: dirname(__DIR__, 3) . DIRECTORY_SEPARATOR . 'private' . DIRECTORY_SEPARATOR . 'sukali.php';
 $privateConfig = is_file($configPath) ? require $configPath : [];
-if (!is_array($privateConfig)) $privateConfig = [];
-$host = getenv('SUKALI_DB_HOST') ?: ($privateConfig['db_host'] ?? '127.0.0.1');
-$database = getenv('SUKALI_DB_NAME') ?: ($privateConfig['db_name'] ?? 'sukali_db');
-$dbUser = getenv('SUKALI_DB_USER') ?: ($privateConfig['db_user'] ?? 'root');
-$dbPassword = getenv('SUKALI_DB_PASSWORD') ?: ($privateConfig['db_password'] ?? '');
+
+$config = require_once __DIR__ . '/config.php';
+$dbConfig = $config['db'];
+
+$host = $dbConfig['host'];
+$database = $dbConfig['database'];
+$dbUser = $dbConfig['user'];
+$dbPassword = $dbConfig['password'];
+
 try {
     $db = new PDO("mysql:host=$host;dbname=$database;charset=utf8mb4", $dbUser, $dbPassword, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
