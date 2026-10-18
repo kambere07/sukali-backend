@@ -3,11 +3,18 @@
 date_default_timezone_set('Africa/Kinshasa');
 
 try {
-    $db = new PDO('mysql:host=localhost;dbname=sukali_db;charset=utf8mb4', 'root', '', [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-    ]);
+    $config = require_once __DIR__ . '/config.php';
+    $dbConfig = $config['db'];
 
+    $host = $dbConfig['host'];
+    $database = $dbConfig['database'];
+    $dbUser = $dbConfig['user'];
+    $dbPassword = $dbConfig['password'];
+
+    $db = new PDO("mysql:host=$host;dbname=$database;charset=utf8mb4", $dbUser, $dbPassword, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    ]);
     // Auto-création de la table de messagerie si elle n'existe pas
     $db->exec("CREATE TABLE IF NOT EXISTS messages_consultation (
         id INT AUTO_INCREMENT PRIMARY KEY,

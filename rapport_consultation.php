@@ -2,11 +2,18 @@
 date_default_timezone_set('Africa/Kinshasa');
 
 try {
-    $db = new PDO('mysql:host=localhost;dbname=sukali_db;charset=utf8mb4', 'root', '', [
+    $config = require_once __DIR__ . '/config.php';
+    $dbConfig = $config['db'];
+
+    $host = $dbConfig['host'];
+    $database = $dbConfig['database'];
+    $dbUser = $dbConfig['user'];
+    $dbPassword = $dbConfig['password'];
+
+    $db = new PDO("mysql:host=$host;dbname=$database;charset=utf8mb4", $dbUser, $dbPassword, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-    ]);
-} catch (PDOException $e) {
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    ]);} catch (PDOException $e) {
     die("<h2 style='color:#e74c3c;text-align:center;margin-top:50px;font-family:sans-serif;'>Erreur de connexion à la base de données Sukali</h2>");
 }
 
