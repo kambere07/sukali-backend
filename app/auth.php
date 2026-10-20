@@ -28,11 +28,13 @@ if (!is_array($input)) {
     reply(400, ['success' => false, 'message' => 'Requête JSON invalide.']);
 }
 
-// Configuration BDD WampServer
-$host = 'localhost';
-$database = 'sukali_db';
-$dbUser = 'root';
-$dbPassword = '';
+$config = require_once __DIR__ . '/config.php';
+$dbConfig = $config['db'];
+
+$host = $dbConfig['host'];
+$database = $dbConfig['database'];
+$dbUser = $dbConfig['user'];
+$dbPassword = $dbConfig['password'];
 
 $action = (string)($input['action'] ?? '');
 $pin = trim((string)($input['code_pin'] ?? ''));
